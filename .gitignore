@@ -1,0 +1,13 @@
+venv/
+*.pyc
+*.egg-info/
+dist/
+settings.cfg
+*.log*
+.python-version
+.idea/
+htmlcov/
+.tox
+.coverage
+test
+README.*

@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  mongo-db:
+    container_name: mongo-db
+    image: mongo:4.0.4
+    restart: on-failure
+    volumes:
+      - "db-data:/data/db"
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=cge
+#      - MONGO_INITDB_ROOT_PASSWORD=cge
+    ports:
+      - "27017:27017"
+
+  api:
+    container_name: api
+    build: .
+    environment:
+      - FLASK_ENV=development
+      - CGE_QUERY_API_MONGODB_HOST=mongo-db
+      - CGE_QUERY_API_MONGODB_PORT=27017
+#      - CGE_QUERY_API_MONGODB_PASS=cge
+#      - CGE_QUERY_API_MONGODB_USER=cge
+    ports:
+      - 8000:8000
+    links:
+      - mongo-db
+
+volumes:
+  db-data: {}

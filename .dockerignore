@@ -1,0 +1,51 @@
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+**/*.coverage
+**/*.tox
+nosetests.xml
+htmlcov
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Sphinx
+docs/_build
+
+# Misc
+**/*.egg
+**/*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+**/__pycache__
+**/tests/
+.pytest_cache
+push-img.sh
+venv
+
+.envrc
+.editorconfig
+.python-version
+**/.git
+prototype
+sandbox
+
+docker-compose.yml
+docker-compose.dev.yml
+tox.ini
+dev.py
+dev.sh
+
+.gitlab-ci.yml
