@@ -11,8 +11,8 @@
   -->
 
 <!-- version:1.5.61 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:com="SRA.common">
-  <xs:import schemaLocation="SRA.common.xsd" namespace="SRA.common"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:com="SRA.common.xsd">
+  <xs:import schemaLocation="SRA.common.xsd" namespace="SRA.common.xsd"/>
 
   <!-- STRING ENUMERATIONS BEGIN -->
   <xs:simpleType name="typeLibraryStrategy">
