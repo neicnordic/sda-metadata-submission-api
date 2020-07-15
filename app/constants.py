@@ -8,6 +8,7 @@ POSSIBLE_REFERENCE_OBJECTS = {
                     'EXPERIMENT' : ['STUDY_REF', 'SAMPLE_REF'],
                     'ANALYSIS' : ['STUDY_REF', 'SAMPLE_REF', 'RUN_REF'],
                     'RUN': ['EXPERIMENT_REF'],
+                    'STUDY': ['']
                    }
 
 """
