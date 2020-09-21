@@ -37,15 +37,15 @@ def upload_file():
         raise CustomeError(INCORRECT_FILE_TYPE)
 
     fstring = file.read().decode('utf-8')
-    # is_referenced = utils.is_referenced_object_registered(fstring, object_type, metadata_collection)
+    is_referenced = utils.is_referenced_object_registered(fstring, object_type, metadata_collection)
 
-    # if not is_referenced:
-    #     return jsonify({"message": "this document can not be uploaded since it's not being referenced anywhere"}), 400
+    if not is_referenced:
+        return jsonify({"message": "this document can not be uploaded since it's not being referenced anywhere"}), 400
     xml_valid = utils.is_valid_xml(fstring, object_type)
     # TODO: turn the file to XML format, check validity and split to xml nodes, instead of each line being one record
 
     if xml_valid:
-        utils.collection_writer(fstring, object_type, 'metadatadb', metadata_collection)
+        utils.collection_writer(fstring, object_type, metadata_collection)
         return jsonify({"message": "uploading data.."}), 200
     else:
         raise CustomError(INVALID_XML)

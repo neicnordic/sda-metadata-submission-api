@@ -19,8 +19,12 @@ def is_file_extension_allowed(filename):
 def is_referenced_object_registered(xml_string, object_type, collection_name):
     reference_objects = POSSIBLE_REFERENCE_OBJECTS[object_type.upper()]
     root = etree.parse(StringIO(xml_string))
+    # root = parsed.xpath('/*')
+    # print(root)
+
     for object in reference_objects:
-        reference_name = root.XPath('//%s[@"refname"]/text()' % object)
+        reference_name = root.xpath('//%s[@"refName"]/text()' % object)
+        print(reference_name)
         if reference_name != '':
             reference_document = collection_name.find_one({"reference_alias": reference_name})
             if reference_document:
@@ -29,21 +33,21 @@ def is_referenced_object_registered(xml_string, object_type, collection_name):
 
 
 def is_valid_xml(xml_string, object_type):
-    with current_app.open_resource(f'catalog/SRA.{object_type}.xsd') as schema_location:  # = SCHEMA_LOCATIONS[object_type]
+    with current_app.open_resource(
+            f'catalog/SRA.{object_type}.xsd') as schema_location:  # = SCHEMA_LOCATIONS[object_type]
         xml_schema_doc = etree.parse(schema_location)
         xml_schema = etree.XMLSchema(xml_schema_doc)
         xml_doc = etree.fromstring(xml_string)
-
         try:
             validity = xml_schema.validate(xml_doc)
-            print("THE DOCUMENT IS VALID")
+            print("THE DOCUMENT IS VALIDATED")
         except:
             print("PROBLEM:", sys.exec_info()[0])
             print("PARSE ERROR:", xml_schema.error_log)
         return validity
 
 
-def collection_writer(xml_string, object_type, db_name, collection_name):
+def collection_writer(xml_string, object_type, collection_name):
     mongo_document = {'xml': xml_string, 'object_type': object_type, 'file_reference': ""}
     collection_name.insert(mongo_document)
     print("Records Successfully written in the database!")
