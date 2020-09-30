@@ -1,4 +1,7 @@
 import csv
+import re
+from io import StringIO
+from lxml import etree
 from flask import request, jsonify
 from app.config_dev import MONGODB_DB, MONGODB_METADATA_COLLECTION
 from app import db
@@ -37,7 +40,19 @@ def upload_file():
         raise CustomeError(INCORRECT_FILE_TYPE)
 
     fstring = file.read().decode('utf-8')
+    # root = etree.parse(StringIO(fstring))
+    # access_id = root.find(f'./{object_type.upper()}').attrib['accession_id']
+    # print(access_id)
+    # print(access_id)
+    # print(access_id)
+    print(fstring)
     is_referenced = utils.is_referenced_object_registered(fstring, object_type, metadata_collection)
+    accession_id = re.search('accession_id=(.+?)filename', fstring).group(1)
+    # print(accession_id)
+    # # accession_id.split("=", 1)[1].replace("/>", "")
+    # print(accession_id)
+    # print(accession_id)
+    # print(accession_id)
 
     if not is_referenced:
         return jsonify({"message": "this document can not be uploaded since it's not being referenced anywhere"}), 400

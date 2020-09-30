@@ -6,6 +6,7 @@ from pymongo import collection as pymongo_collection
 from app import exceptions
 from app.constants import SCHEMA_LOCATIONS, ALLOWED_FILE_EXTENSIONS, POSSIBLE_REFERENCE_OBJECTS, NOT_FOUND
 from app.exceptions import CustomError
+import re
 
 
 def is_file_extension_allowed(filename):
@@ -18,15 +19,16 @@ def is_file_extension_allowed(filename):
 
 def is_referenced_object_registered(xml_string, object_type, collection_name):
     reference_objects = POSSIBLE_REFERENCE_OBJECTS[object_type.upper()]
-    root = etree.parse(StringIO(xml_string))
-    # root = parsed.xpath('/*')
-    # print(root)
-
     for object in reference_objects:
-        reference_name = root.xpath('//%s[@"refName"]/text()' % object)
-        print(reference_name)
-        if reference_name != '':
-            reference_document = collection_name.find_one({"reference_alias": reference_name})
+        print(object)
+        if "" in reference_objects:
+            return True
+        if "FILE" not in object and object in xml_string:
+            obj_value = re.search(f'<{object}(.+?)<', xml_string).group(1)
+            obj_value = obj_value.split("=", 1)[1].replace("/>", "")
+            print(obj_value)
+
+            reference_document = collection_name.find_one({"alias": obj_value})
             if reference_document:
                 return True
     return False
@@ -40,10 +42,12 @@ def is_valid_xml(xml_string, object_type):
         xml_doc = etree.fromstring(xml_string)
         try:
             validity = xml_schema.validate(xml_doc)
-            print("THE DOCUMENT IS VALIDATED")
+            if validity is False:
+                print("PARSE ERROR:", xml_schema.error_log)
         except:
             print("PROBLEM:", sys.exec_info()[0])
             print("PARSE ERROR:", xml_schema.error_log)
+
         return validity
 
 

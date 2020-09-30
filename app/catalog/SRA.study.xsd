@@ -36,6 +36,20 @@
                                         </xs:documentation>
                                     </xs:annotation>
                                 </xs:element>
+
+<!--                                <xs:element name="FILES">-->
+<!--                                    <xs:annotation>-->
+<!--                                        <xs:documentation>Files associated with the-->
+<!--                                            analysis.-->
+<!--                                        </xs:documentation>-->
+<!--                                    </xs:annotation>-->
+<!--                                    <xs:complexType>-->
+<!--                                        <xs:sequence>-->
+<!--                                            <xs:element maxOccurs="unbounded" minOccurs="1" name="FILE"/>-->
+<!--                                        </xs:sequence>-->
+<!--                                    </xs:complexType>-->
+<!--                                </xs:element>-->
+
                                 <xs:element name="STUDY_TYPE" maxOccurs="1" minOccurs="1">
                                     <xs:annotation>
                                         <xs:documentation>The STUDY_TYPE presents a controlled vocabulary for expressing
@@ -157,6 +171,13 @@
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:attribute>
+<!--                                        <xs:attribute name="accession_id" type="xs:string" use="optional">-->
+<!--                                            <xs:annotation>-->
+<!--                                                <xs:documentation>-->
+<!--                                                    The study accession assigned by the archive.-->
+<!--                                                </xs:documentation>-->
+<!--                                            </xs:annotation>-->
+<!--                                        </xs:attribute>-->
                                         <xs:attribute name="new_study_type" use="optional" type="xs:string">
                                             <xs:annotation>
                                                 <xs:documentation>
