@@ -7,7 +7,7 @@ flake8==3.6.0
 flake8-polyfill==1.0.2
 jsonschema==2.6.0
 mando==0.6.4
-mongomock==3.14.0
+# mongomock==3.14.0
 more-itertools==4.3.0
 packaging==17.1
 pluggy==0.8.0
@@ -15,7 +15,7 @@ py==1.7.0
 pycodestyle==2.4.0
 pyflakes==2.0.0
 pyparsing==2.2.0
-pytest==4.0.2
+# pytest==4.0.2
 pytest-cov==2.6.0
 pytest-sugar==0.9.1
 radon==2.4.0

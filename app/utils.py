@@ -26,7 +26,6 @@ def is_referenced_object_registered(xml_string, object_type, collection_name):
         if "FILE" not in object and object in xml_string:
             obj_value = re.search(f'<{object}(.+?)<', xml_string).group(1)
             obj_value = obj_value.split("=", 1)[1].replace("/>", "")
-            print(obj_value)
 
             reference_document = collection_name.find_one({"alias": obj_value})
             if reference_document:

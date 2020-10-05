@@ -53,7 +53,9 @@ def upload_file():
     if xml_valid:
         utils.collection_writer(fstring, object_type, metadata_collection)
         return jsonify(
-            {"message": f"The file {accession_id} of type {file_type} was successfully uploaded", "data": [accession_id,
-             file_type]}), 200
+            {"message": f"The file {accession_id} of type {file_type} was successfully uploaded"}), 200
+    elif not valid:
+        return jsonify(
+            {"message": "The submitted form is not valid"}), 400
     else:
         return jsonify({"Something went wrong with your submission, please check each field's requirements"}), 400
