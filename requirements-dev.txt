@@ -19,7 +19,7 @@ pyparsing==2.2.0
 pytest-cov==2.6.0
 pytest-sugar==0.9.1
 radon==2.4.0
-requests==2.19.1
+requests==2.20.0
 slumber==0.7.1
 openapi-spec-validator==0.2.4
 termcolor==1.1.0

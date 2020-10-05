@@ -48,7 +48,6 @@ def upload_file():
     if not is_referenced:
         return jsonify({"message": "this document can not be uploaded since it's not being referenced anywhere"}), 400
     xml_valid = utils.is_valid_xml(fstring, object_type)
-    # TODO: turn the file to XML format, check validity and split to xml nodes, instead of each line being one record
 
     if xml_valid:
         utils.collection_writer(fstring, object_type, metadata_collection)
