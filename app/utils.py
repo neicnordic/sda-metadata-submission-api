@@ -38,7 +38,8 @@ def is_valid_xml(xml_string, object_type):
             f'catalog/SRA.{object_type}.xsd') as schema_location:  # = SCHEMA_LOCATIONS[object_type]
         xml_schema_doc = etree.parse(schema_location)
         xml_schema = etree.XMLSchema(xml_schema_doc)
-        xml_doc = etree.fromstring(xml_string)
+        xml_doc = etree.fromstring(xml_string.encode('ascii'))
+        print(xml_doc)
         try:
             validity = xml_schema.validate(xml_doc)
             if validity is False:

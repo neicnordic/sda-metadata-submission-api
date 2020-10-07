@@ -37,6 +37,3 @@ paths:
         200:
           description: "The file //file of type //file_type was successfully uploaded"
 
-
-
-

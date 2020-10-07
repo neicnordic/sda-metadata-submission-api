@@ -28,22 +28,22 @@ def upload_file():
     object_type = args['object_type']
     object_type.lower()
     metadata_collection = db_client[MONGODB_DB][MONGODB_METADATA_COLLECTION]
+    print(request.files.to_dict())
 
     if 'file' not in request.files:
         raise CustomError(MISSING_FILE_KEY)
     file = request.files['file']
 
-    if request.form['filename'] == '':
-        raise CustomError(MISSING_FILE_NAME)
-    file_extension_ok = utils.is_file_extension_allowed(request.form['filename'])
-    if not file_extension_ok:
-        raise CustomeError(INCORRECT_FILE_TYPE)
-
     fstring = file.read().decode('utf-8')
-    print(fstring)
+
     is_referenced = utils.is_referenced_object_registered(fstring, object_type, metadata_collection)
-    accession_id = re.search('accession_id=(.+?)filename', fstring).group(1)
-    file_type = re.search('accession_id=(.+?)checksum', fstring).group(1)
+
+    try:
+        accession_id = filter(None, re.search('accession_id=(.+?)filename', fstring).group(1))
+        file_type = filter(None, re.search('accession_id=(.+?)checksum', fstring).group(1))
+    except AttributeError:
+        accession_id = ""
+        file_type = ""
 
     if not is_referenced:
         return jsonify({"message": "this document can not be uploaded since it's not being referenced anywhere"}), 400
@@ -53,7 +53,7 @@ def upload_file():
         utils.collection_writer(fstring, object_type, metadata_collection)
         return jsonify(
             {"message": f"The file {accession_id} of type {file_type} was successfully uploaded"}), 200
-    elif not valid:
+    elif not xml_valid:
         return jsonify(
             {"message": "The submitted form is not valid"}), 400
     else:
