@@ -9,5 +9,6 @@ settings.cfg
 htmlcov/
 .tox
 .coverage
-test
 README.*
+query_api.egg-info
+runtime
