@@ -12,4 +12,4 @@ htmlcov/
 README.*
 query_api.egg-info
 runtime
-app/.DS_Store
+.DS_Store
