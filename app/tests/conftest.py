@@ -33,52 +33,6 @@ def mongodb_connection():
     )
 
 
-# @pytest.fixture()
-# def mongodb_session(mongodb_connection, request):
-#     """
-#     Creates a fake MongoDB to use for testing. Populates the DB with data base on `test_records_base`, in two databases
-#     called "Test_DB1" and "Test_DB2". Both test databases have one collection, called "TestCollection".
-#
-#     NOTE: This will cleanup all non-default data in the database before and after the actual test runs.
-#
-#     TODO:
-#         Remove redundancy in tests.DB_URI and having DB_URI in `app`, so can just grab DB_URI from `app` here directly.
-#         Means splitting this fixture into `db_connection` and `db_session`, where `db_connection` is session scopedþ
-#         And in `db_session`, having a finalizer that cleans up data.
-#     """
-#
-#     def cleanup_db():
-#         for db_name in mongodb_connection.list_database_names():
-#             if db_name not in ('admin', 'config', 'local'):
-#                 mongodb_connection.drop_database(db_name)
-#
-#     column_names = list(test_datapoints_records_base.keys()) + ["country code"] + ["region"] + ["income group"]
-#
-#     test_db = mongodb_connection[MONGODB_DB]
-#
-#     test_datapoints_collection = test_db[MONGODB_DATAPOINTS_COLLECTION]
-#     test_indicators_collection = test_db[MONGODB_INDICATORS_COLLECTION]
-#
-#     records_datapoints_gen_obj = product(*test_datapoints_records_base.values())
-#     records__indicators_gen_obj = product(*test_indicators_base.values())
-#
-#     for obj in records_datapoints_gen_obj:
-#         obj = list(obj) + [country_codes.get(obj[0])] + \
-#               [regions.get(obj[0])] + [income_groups.get(obj[0])]
-#
-#         dict_obj = dict(zip(column_names, obj))
-#         test_datapoints_collection.insert_one(dict_obj)
-#
-#     for obj in records__indicators_gen_obj:
-#         dict_obj = dict(zip(test_indicators_base.keys(), obj))
-#         test_indicators_collection.insert_one(dict_obj)
-#
-#     test_indicators_collection.create_index([("$**", "text")])
-#     request.addfinalizer(cleanup_db)
-#
-#     return mongodb_connection
-
-
 @pytest.fixture()
 def make_temp_file(tmp_path):
     """
