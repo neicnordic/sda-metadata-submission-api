@@ -9,7 +9,6 @@ settings.cfg
 htmlcov/
 .tox
 .coverage
-README.*
 query_api.egg-info
 runtime
 .DS_Store
