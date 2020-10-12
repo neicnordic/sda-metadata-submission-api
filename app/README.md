@@ -52,20 +52,6 @@ or:
 
 ```
 
-Running a Development Instance
-------------------------------
-
-# Running server locally with development configuration
-``` {.sourceCode .bash}
-
-With the virtual environment created we activate it running:
-$ pyenv activate cge-query-api-dev
-Set FLASK environment variable to development, so changes in the code are inmediatelly used:
-$ export FLASK_ENV=development
-Then proceed to run the flask server by running the command:
-$ flask run
-```
-
 # Running server locally with docker compose
 
 ``` {.sourceCode .bash}
