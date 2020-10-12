@@ -10,4 +10,3 @@ htmlcov/
 .tox
 .coverage
 test
-README.*
