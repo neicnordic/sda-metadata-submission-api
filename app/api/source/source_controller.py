@@ -1,4 +1,3 @@
-import csv
 import re
 from io import StringIO
 from lxml import etree
@@ -35,14 +34,17 @@ def upload_file():
     file = request.files['file']
 
     fstring = file.read().decode('utf-8')
-
+    print(fstring)
     is_referenced = utils.is_referenced_object_registered(fstring, object_type, metadata_collection)
 
     try:
-        accession_id = filter(None, re.search('accession_id=(.+?)filename', fstring).group(1))
-        file_type = filter(None, re.search('accession_id=(.+?)checksum', fstring).group(1))
+        accession_id = re.search('accession_id=(.+?) filename', fstring).group(1)
     except AttributeError:
         accession_id = ""
+
+    try:
+        file_type = re.search('filetype=(.+?)checksum_method', fstring).group(1)
+    except AttributeError:
         file_type = ""
 
     if not is_referenced:
