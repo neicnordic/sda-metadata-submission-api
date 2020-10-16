@@ -48,7 +48,7 @@ def upload_file():
         file_type = ""
 
     if not is_referenced:
-        return jsonify({"message": "this document can not be uploaded since it's not being referenced anywhere"}), 400
+        return jsonify({"message": "this document can not be uploaded since it's not being referenced anywhere"}), 200
     xml_valid = utils.is_valid_xml(fstring, object_type)
 
     if xml_valid:
